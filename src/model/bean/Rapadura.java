@@ -5,19 +5,21 @@
  */
 package model.bean;
 
-import java.util.Date;
+
 
 /**
  *
  * @author delri
  */
-public class Rapadura extends Item{
+public class Rapadura {
+    private int lote;
+    private int qtd;
+    private double preco;
     private double peso;
-    private Date data_fabricacao;
-    private Date data_embalagem;
+    private String data_fabricacao;
+    private String data_embalagem;
 
-    public Rapadura(double peso, Date data_fabricacao, Date data_embalagem, double preco_uni, int qtd) {
-        super(preco_uni, qtd);
+    public Rapadura(double peso, String data_fabricacao, String data_embalagem) {
         this.peso = peso;
         this.data_fabricacao = data_fabricacao;
         this.data_embalagem = data_embalagem;
@@ -30,11 +32,11 @@ public class Rapadura extends Item{
         return peso;
     }
 
-    public Date getData_fabricacao() {
+    public String getData_fabricacao() {
         return data_fabricacao;
     }
 
-    public Date getData_embalagem() {
+    public String getData_embalagem() {
         return data_embalagem;
     }
     

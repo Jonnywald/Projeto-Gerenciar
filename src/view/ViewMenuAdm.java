@@ -103,6 +103,11 @@ public class ViewMenuAdm extends javax.swing.JFrame {
         jMenu3.add(menuOvo);
 
         menuRapadura.setText("Rapadura");
+        menuRapadura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRapaduraActionPerformed(evt);
+            }
+        });
         jMenu3.add(menuRapadura);
 
         menuCliente.setText("Cliente");
@@ -191,6 +196,15 @@ public class ViewMenuAdm extends javax.swing.JFrame {
         cli.setVisible(true);
         ViewMenuAdm.this.dispose();
     }//GEN-LAST:event_menuClienteActionPerformed
+
+    private void menuRapaduraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRapaduraActionPerformed
+        // TODO add your handling code here:
+        ViewGerenciarRapadura rapa = new ViewGerenciarRapadura();
+        rapa.pack();
+        rapa.setLocationRelativeTo(null);
+        rapa.setVisible(true);
+        ViewMenuAdm.this.dispose();
+    }//GEN-LAST:event_menuRapaduraActionPerformed
 
     /**
      * @param args the command line arguments

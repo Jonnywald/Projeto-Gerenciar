@@ -5,7 +5,6 @@
  */
 package model.bean;
 
-import java.util.Date;
 
 /**
  *
@@ -13,10 +12,10 @@ import java.util.Date;
  */
 public class Cachaca_Envasada extends Cachaca{
     private String embalagem;
-    private Date data_envase;
+    private String data_envase;
     private String Registro;
 
-    public Cachaca_Envasada(String embalagem, Date data_envase, String Registro, String tipo, double volume, String reservatorio, Date data_fabricação, double preco_uni, int qtd) {
+    public Cachaca_Envasada(String embalagem, String data_envase, String Registro, String tipo, double volume, String reservatorio, String data_fabricação, double preco_uni, int qtd) {
         super(tipo, volume, reservatorio, data_fabricação, preco_uni, qtd);
         this.embalagem = embalagem;
         this.data_envase = data_envase;
@@ -42,11 +41,11 @@ public class Cachaca_Envasada extends Cachaca{
         this.embalagem = embalagem;
     }
 
-    public Date getData_envase() {
+    public String getData_envase() {
         return data_envase;
     }
 
-    public void setData_envase(Date data_envase) {
+    public void setData_envase(String data_envase) {
         this.data_envase = data_envase;
     }
     

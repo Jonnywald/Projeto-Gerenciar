@@ -5,7 +5,7 @@
  */
 package model.bean;
 
-import java.util.Date;
+
 
 /**
  *
@@ -15,9 +15,9 @@ public class Cachaca extends Item{
     private String tipo;
     private double volume;
     private String reservatorio;
-    private Date data_fabricação;
+    private String data_fabricação;
 
-    public Cachaca(String tipo, double volume, String reservatorio, Date data_fabricação, double preco_uni, int qtd) {
+    public Cachaca(String tipo, double volume, String reservatorio, String data_fabricação, double preco_uni, int qtd) {
         super(preco_uni, qtd);
         this.tipo = tipo;
         this.volume = volume;
@@ -53,11 +53,11 @@ public class Cachaca extends Item{
         this.reservatorio = reservatorio;
     }
 
-    public Date getData_fabricação() {
+    public String getData_fabricação() {
         return data_fabricação;
     }
 
-    public void setData_fabricação(Date data_fabricação) {
+    public void setData_fabricação(String data_fabricação) {
         this.data_fabricação = data_fabricação;
     }
     
