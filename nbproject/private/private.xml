@@ -4,8 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Java_Projects/projeto_gerenciar/src/model/bean/Transferencia.java</file>
-            <file>file:/D:/Java_Projects/projeto_gerenciar/src/model/bean/Cliente.java</file>
-            <file>file:/D:/Java_Projects/projeto_gerenciar/src/model/bean/Ovos_Tipo.java</file>
+            <file>file:/D:/Java_Projects/projeto_gerenciar/src/view/ViewGerenciarOvos.java</file>
+            <file>file:/D:/Java_Projects/projeto_gerenciar/src/view/ViewMovimentacao.java</file>
+            <file>file:/D:/Java_Projects/projeto_gerenciar/src/model/dao/TransferenciaDAO.java</file>
+            <file>file:/D:/Java_Projects/projeto_gerenciar/src/view/ViewMenuAdm.java</file>
         </group>
     </open-files>
 </project-private>

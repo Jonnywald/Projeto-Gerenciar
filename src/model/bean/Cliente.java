@@ -104,4 +104,10 @@ public class Cliente {
         this.saldo = sd;
     }
 
+    @Override
+    public String toString() {
+        return (this.getNome() + " " + this.getSobrenome()); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+
 }

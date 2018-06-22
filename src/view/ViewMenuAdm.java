@@ -41,6 +41,9 @@ public class ViewMenuAdm extends javax.swing.JFrame {
         menuRapadura = new javax.swing.JMenuItem();
         menuCliente = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        menuMov = new javax.swing.JMenuItem();
+        menuHist = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu");
@@ -122,6 +125,21 @@ public class ViewMenuAdm extends javax.swing.JFrame {
 
         jMenu4.setText("Venda");
         jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Tranferencias");
+
+        menuMov.setText("Movimentar");
+        menuMov.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuMovActionPerformed(evt);
+            }
+        });
+        jMenu5.add(menuMov);
+
+        menuHist.setText("Histórico");
+        jMenu5.add(menuHist);
+
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -206,6 +224,15 @@ public class ViewMenuAdm extends javax.swing.JFrame {
         ViewMenuAdm.this.dispose();
     }//GEN-LAST:event_menuRapaduraActionPerformed
 
+    private void menuMovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMovActionPerformed
+        // TODO add your handling code here:
+        ViewMovimentacao mov = new ViewMovimentacao();
+        mov.pack();
+        mov.setLocationRelativeTo(null);
+        mov.setVisible(true);
+        ViewMenuAdm.this.dispose();
+    }//GEN-LAST:event_menuMovActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -248,11 +275,14 @@ public class ViewMenuAdm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem menuCachaca;
     private javax.swing.JMenuItem menuCliente;
     private javax.swing.JMenuItem menuDesconectar;
     private javax.swing.JMenuItem menuFuncao;
+    private javax.swing.JMenuItem menuHist;
+    private javax.swing.JMenuItem menuMov;
     private javax.swing.JMenuItem menuOvo;
     private javax.swing.JMenuItem menuRapadura;
     private javax.swing.JMenuItem menuSair;

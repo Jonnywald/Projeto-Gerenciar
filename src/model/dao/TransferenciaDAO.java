@@ -98,4 +98,23 @@ public class TransferenciaDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
+    public boolean Check(int id){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        boolean chk = false;
+        try {
+            stmt = con.prepareStatement("SELECT * FROM Transferencia WHERE ID = ?");
+            stmt.setInt(1,id);
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                chk = true;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao ler dados: " + ex);
+        }finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return chk;
+    }
 }
