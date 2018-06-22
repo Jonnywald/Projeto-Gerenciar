@@ -5,6 +5,16 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import model.bean.Cliente;
+import model.bean.Ovos_Caipira;
+import model.bean.Ovos_Tipo;
+import model.dao.ClienteDAO;
+import model.dao.Ovos_CaipiraDAO;
+import model.dao.Ovos_TipoDAO;
+
 /**
  *
  * @author delri
@@ -16,6 +26,7 @@ public class ViewGerenciarClientes extends javax.swing.JFrame {
      */
     public ViewGerenciarClientes() {
         initComponents();
+        ReadTableClientes();
     }
 
     /**
@@ -67,6 +78,11 @@ public class ViewGerenciarClientes extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,20 +147,30 @@ public class ViewGerenciarClientes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome", "E-mail", "Telefone"
+                "Código", "Nome", "E-mail", "Telefone", "Saldo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableClientes);
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -199,7 +225,20 @@ public class ViewGerenciarClientes extends javax.swing.JFrame {
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
-
+    public void ReadTableClientes(){
+        DefaultTableModel modelo = (DefaultTableModel) tableClientes.getModel();
+        ClienteDAO cdao = new ClienteDAO();
+        modelo.setNumRows(0);
+        for (Cliente c : cdao.Read()) {
+            modelo.addRow(new Object[]{
+                c.getID(),
+                c.getNome()+ " " + c.getSobrenome(),
+                c.getEmail(),
+                c.getTelefone(),
+                c.getSaldo()
+            });
+        }
+    }
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
         ViewMenuAdm menu = new ViewMenuAdm();
@@ -208,6 +247,56 @@ public class ViewGerenciarClientes extends javax.swing.JFrame {
         menu.setVisible(true);
         ViewGerenciarClientes.this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        Cliente c = new Cliente();
+        ClienteDAO cdao = new ClienteDAO();
+        c.setID(Integer.parseInt(txtCod.getText()));
+        c.setNome(txtNome.getText());
+        c.setSobrenome(txtSobrenome.getText());
+        c.setEmail(txtEmail.getText());
+        c.setTelefone(txtTelefone.getText());
+        if (txtCod.getText() != "" && txtNome.getText()!= null && txtTelefone.getText() != "") {
+            if(cdao.Check(c.getID())){
+                int input = JOptionPane.showConfirmDialog(null, "Codigo já cadastrado, deseja atulalizar item?");
+                if (input == 0) {
+                    cdao.Update(c);
+                }
+            }else{
+                cdao.Create(c);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Campo Vazio!");
+        }
+        ReadTableClientes();
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void tableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableClientesMouseClicked
+        // TODO add your handling code here:
+        if(tableClientes.getSelectedRow() != -1){
+            txtCod.setText(tableClientes.getValueAt(tableClientes.getSelectedRow(), 0).toString());
+            String[] s = tableClientes.getValueAt(tableClientes.getSelectedRow(), 1).toString().split(" ");
+            txtNome.setText(s[0]);
+            txtSobrenome.setText(s[1]);
+            txtEmail.setText(tableClientes.getValueAt(tableClientes.getSelectedRow(), 2).toString());
+            txtTelefone.setText(tableClientes.getValueAt(tableClientes.getSelectedRow(), 3).toString());
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+    }//GEN-LAST:event_tableClientesMouseClicked
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        if (tableClientes.getSelectedRow() != -1) {
+            ClienteDAO cdao = new ClienteDAO();
+            cdao.Delete((int) tableClientes.getValueAt(tableClientes.getSelectedRow(), 0));
+            ReadTableClientes();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+        ReadTableClientes();
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments

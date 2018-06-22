@@ -7,6 +7,7 @@ package view;
 
 import java.sql.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.bean.Ovos_Caipira;
 import model.bean.Ovos_Tipo;
@@ -29,6 +30,7 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
             cbTipo.addItem(tOvos);
         }
         ReadJTableTipo();
+        ReadJTableOvo();
     }
 
     /**
@@ -56,13 +58,13 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btnOvoSalvar = new javax.swing.JButton();
         cbTipo = new javax.swing.JComboBox<>();
-        ftxtData = new javax.swing.JFormattedTextField();
         txtQtd = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtLote = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        txtData = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableOvo = new javax.swing.JTable();
@@ -152,6 +154,11 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableTipo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableTipoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableTipo);
 
         btnTipoExcluir.setText("Excluir");
@@ -203,8 +210,6 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
             }
         });
 
-        ftxtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-
         jLabel3.setText("Quantidade:");
 
         jLabel4.setText("Data de Embalagem:");
@@ -212,6 +217,8 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
         jLabel5.setText("Tipo:");
 
         jLabel7.setText("Lote:");
+
+        txtData.setDateFormatString("yyyy-MM-dd");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -224,7 +231,7 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 147, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
@@ -234,26 +241,28 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
                                 .addComponent(jLabel3))
                             .addComponent(jLabel4))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(ftxtData)
-                    .addComponent(txtQtd)
-                    .addComponent(cbTipo, 0, 137, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtQtd, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbTipo, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ftxtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnOvoSalvar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -270,20 +279,30 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo", "Quantidade", "Data de Embalagem", "Preço Total"
+                "Lote", "Tipo", "Quantidade", "Data de Embalagem", "Preço Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tableOvo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableOvoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableOvo);
 
         btnOvoExcluir.setText("Excluir");
+        btnOvoExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOvoExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -298,7 +317,7 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnOvoExcluir)
                 .addGap(7, 7, 7))
@@ -327,7 +346,7 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -378,6 +397,20 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
             });
         }
     }
+    private void ReadJTableOvo() {
+        DefaultTableModel modelo = (DefaultTableModel) tableOvo.getModel();
+        Ovos_CaipiraDAO odao = new Ovos_CaipiraDAO();
+        modelo.setNumRows(0);
+        for (Ovos_Caipira o : odao.Read()) {
+            modelo.addRow(new Object[]{
+                o.getLote(),
+                o.getTipo_ovo(),
+                o.getQtd(),
+                o.getData_embalagem(),
+                o.calcPrecoTotal()
+            });
+        }
+    }
     private void btnTipoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoExcluirActionPerformed
         // TODO add your handling code here:
         if (tableTipo.getSelectedRow() != -1) {
@@ -398,9 +431,9 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
         Ovos_CaipiraDAO odao = new Ovos_CaipiraDAO();
         o.setQtd(Integer.parseInt(txtQtd.getText()));
         o.setTipo_ovo(tOvo);
-        o.setData_embalagem(Date.valueOf(ftxtData.getText()));
+        o.setData_embalagem(((JTextField)txtData.getDateEditor().getUiComponent()).getText());
         o.setLote(Integer.parseInt(txtLote.getText()));
-        if (txtQtd.getText() != "" && ftxtData.getText() != "" && txtLote.getText() != "") {
+        if (txtQtd.getText() != "" && txtData.getDate() != null && txtLote.getText() != "") {
             if(odao.Check(o.getLote())){
                 int input = JOptionPane.showConfirmDialog(null, "Codigo já cadastrado, deseja atulalizar item?");
                 if (input == 0) {
@@ -412,7 +445,43 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Campo Vazio!");
         }
+        ReadJTableOvo();
     }//GEN-LAST:event_btnOvoSalvarActionPerformed
+
+    private void btnOvoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOvoExcluirActionPerformed
+        // TODO add your handling code here:
+        if (tableOvo.getSelectedRow() != -1) {
+            Ovos_CaipiraDAO odao = new Ovos_CaipiraDAO();
+            odao.Delete((int) tableOvo.getValueAt(tableOvo.getSelectedRow(), 0));
+            ReadJTableOvo();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+        ReadJTableOvo();
+    }//GEN-LAST:event_btnOvoExcluirActionPerformed
+
+    private void tableTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableTipoMouseClicked
+        // TODO add your handling code here:
+        if (tableTipo.getSelectedRow() != -1){
+            txtTipoCod.setText(tableTipo.getValueAt(tableTipo.getSelectedRow(), 0).toString());
+            txtTipoDesc.setText(tableTipo.getValueAt(tableTipo.getSelectedRow(), 1).toString());
+            txtPreco.setText(tableTipo.getValueAt(tableTipo.getSelectedRow(), 2).toString());
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+    }//GEN-LAST:event_tableTipoMouseClicked
+
+    private void tableOvoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableOvoMouseClicked
+        // TODO add your handling code here:
+        if(tableOvo.getSelectedRow() != -1){
+            txtLote.setText(tableOvo.getValueAt(tableOvo.getSelectedRow(), 0).toString());
+            txtQtd.setText(tableOvo.getValueAt(tableOvo.getSelectedRow(), 2).toString());
+            //txtData.setDate((Date)tableOvo.getValueAt(tableOvo.getSelectedRow(), 3));
+            cbTipo.setSelectedItem(tableOvo.getValueAt(tableOvo.getSelectedRow(), 1));
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+    }//GEN-LAST:event_tableOvoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -456,7 +525,6 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
     private javax.swing.JButton btnTipoSalvar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<Object> cbTipo;
-    private javax.swing.JFormattedTextField ftxtData;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -472,6 +540,7 @@ public class ViewGerenciarOvos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableOvo;
     private javax.swing.JTable tableTipo;
+    private com.toedter.calendar.JDateChooser txtData;
     private javax.swing.JTextField txtLote;
     private javax.swing.JTextField txtPreco;
     private javax.swing.JTextField txtQtd;

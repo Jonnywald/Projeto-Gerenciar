@@ -5,7 +5,6 @@
  */
 package model.bean;
 
-import java.util.Date;
 
 /**
  *
@@ -13,8 +12,9 @@ import java.util.Date;
  */
 public class Transferencia {
     int ID;
+    int codCliente;
     double valor;
-    Date dataTransf;
+    String dataTransf;
 
     public int getID() {
         return ID;
@@ -32,13 +32,22 @@ public class Transferencia {
         this.valor = valor;
     }
 
-    public Date getDataTransf() {
+    public String getDataTransf() {
         return dataTransf;
     }
 
-    public void setDataTransf(Date dataTransf) {
+    public void setDataTransf(String dataTransf) {
         this.dataTransf = dataTransf;
     }
+
+    public int getCodCliente() {
+        return codCliente;
+    }
+
+    public void setCodCliente(int codCliente) {
+        this.codCliente = codCliente;
+    }
+    
     
     
 }

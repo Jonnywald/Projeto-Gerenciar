@@ -92,6 +92,11 @@ public class ViewGerenciarFuncao extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableFuncao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableFuncaoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableFuncao);
 
         btnVoltar.setText("Voltar");
@@ -195,6 +200,15 @@ public class ViewGerenciarFuncao extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione uma linha!");
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void tableFuncaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableFuncaoMouseClicked
+        // TODO add your handling code here:
+        if (tableFuncao.getSelectedRow() != -1){
+            txtAdicionar.setText(tableFuncao.getValueAt(tableFuncao.getSelectedRow(), 1).toString());
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+    }//GEN-LAST:event_tableFuncaoMouseClicked
 
     /**
      * @param args the command line arguments

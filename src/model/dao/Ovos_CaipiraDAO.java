@@ -29,7 +29,7 @@ public class Ovos_CaipiraDAO {
             stmt = con.prepareStatement("INSERT INTO Ovos VALUES(?,?,?,?)");
             stmt.setInt(1, o.getLote());
             stmt.setInt(2, o.getTipo_ovo().getID());
-            stmt.setDate(3, (Date) o.getData_embalagem());
+            stmt.setString(3, o.getData_embalagem());
             stmt.setInt(4,o.getQtd());
             stmt.executeUpdate();
 
@@ -65,7 +65,7 @@ public class Ovos_CaipiraDAO {
         try {
             stmt = con.prepareStatement("UPDATE ovos SET Tipo_id = ?, data_embalagem = ?, qtd = ? WHERE ID = ?");
             stmt.setInt(1, o.getTipo_ovo().getID());
-            stmt.setDate(2, (Date) o.getData_embalagem());
+            stmt.setString(2, o.getData_embalagem());
             stmt.setInt(3, o.getQtd());
             stmt.setInt(4, o.getLote());
 
@@ -96,7 +96,7 @@ public class Ovos_CaipiraDAO {
                 o.setTipo_ovo(to);
                 o.setLote(rs.getInt("ID"));
                 o.setQtd(rs.getInt("qtd"));
-                o.setData_embalagem(rs.getDate("data_embalagem"));
+                o.setData_embalagem(rs.getString("data_embalagem"));
                 ovos.add(o);
             }
         } catch (SQLException ex) {
@@ -105,5 +105,20 @@ public class Ovos_CaipiraDAO {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return ovos;
+    }
+    public void Delete(int id) {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement("DELETE FROM Ovos WHERE ID = ?");
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
     }
 }

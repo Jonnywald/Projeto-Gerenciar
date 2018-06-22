@@ -142,7 +142,7 @@ public class Ovos_TipoDAO {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Ovos_Tipo o = null;
+        Ovos_Tipo o = new Ovos_Tipo();
         try{
             stmt = con.prepareStatement("SELECT * FROM Tipo_Ovos WHERE ID = ?");
             stmt.setInt(1,id);

@@ -19,7 +19,7 @@ public class Cliente {
     String email;
     String telefone;
     List<Transferencia> transf;
-    double saldo;
+    double saldo = 0;
 
     public int getID() {
         return ID;
@@ -75,6 +75,10 @@ public class Cliente {
         return saldo;
     }
 
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
     public void addTransf(Transferencia t) {
         this.transf.add(t);
         calcSaldo();
@@ -92,8 +96,10 @@ public class Cliente {
 
     public void calcSaldo() {
         double sd = 0;
-        for (Transferencia t : this.transf) {
-            sd += t.valor;
+        if (this.transf != null) {
+            for (Transferencia t : this.transf) {
+                sd += t.valor;
+            }
         }
         this.saldo = sd;
     }

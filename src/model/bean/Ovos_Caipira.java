@@ -5,7 +5,6 @@
  */
 package model.bean;
 
-import java.util.Date;
 
 /**
  *
@@ -15,9 +14,9 @@ public class Ovos_Caipira {
     private int Qtd;
     private int Lote;
     private Ovos_Tipo tipo_ovo;
-    private Date data_embalagem;
+    private String data_embalagem;
 
-    public Ovos_Caipira(int ID,Ovos_Tipo tipo, Date data_embalagem) {
+    public Ovos_Caipira(int ID,Ovos_Tipo tipo, String data_embalagem) {
         this.Qtd = ID;
         this.tipo_ovo = tipo;
         this.data_embalagem = data_embalagem;
@@ -30,7 +29,7 @@ public class Ovos_Caipira {
         return tipo_ovo;
     }
 
-    public Date getData_embalagem() {
+    public String getData_embalagem() {
         return data_embalagem;
     }
 
@@ -46,7 +45,7 @@ public class Ovos_Caipira {
         this.tipo_ovo = tipo_ovo;
     }
 
-    public void setData_embalagem(Date data_embalagem) {
+    public void setData_embalagem(String data_embalagem) {
         this.data_embalagem = data_embalagem;
     }
 
