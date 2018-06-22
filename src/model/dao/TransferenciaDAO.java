@@ -25,11 +25,10 @@ public class TransferenciaDAO {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("INSERT INTO Transferencia VALUES(?,?,?,?)");
-            stmt.setInt(1,t.getID());
-            stmt.setInt(2, t.getCodCliente());
-            stmt.setString(4, t.getDataTransf());
-            stmt.setDouble(3,t.getValor());
+            stmt = con.prepareStatement("INSERT INTO Transferencia (cliente_cod , valor, data_transf) VALUES(?,?,?)");
+            stmt.setInt(1, t.getCodCliente());
+            stmt.setString(3, t.getDataTransf());
+            stmt.setDouble(2,t.getValor());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Adicionado com sucesso!");
@@ -63,6 +62,32 @@ public class TransferenciaDAO {
 
         try {
             stmt = con.prepareStatement("SELECT * FROM Transferencia");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Transferencia t = new Transferencia();
+                t.setID(rs.getInt("ID"));
+                t.setCodCliente(rs.getInt("cliente_cod"));
+                t.setValor(rs.getDouble("valor"));
+                t.setDataTransf(rs.getString("data_transf"));
+                transf.add(t);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao ler dados: " + ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return transf;
+    }
+    public List<Transferencia> ClienteRead(int id) {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Transferencia> transf = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM Transferencia Where cliente_cod = ?");
+            stmt.setInt(1, id);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Transferencia t = new Transferencia();

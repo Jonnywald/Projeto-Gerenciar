@@ -137,6 +137,11 @@ public class ViewMenuAdm extends javax.swing.JFrame {
         jMenu5.add(menuMov);
 
         menuHist.setText("Histórico");
+        menuHist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHistActionPerformed(evt);
+            }
+        });
         jMenu5.add(menuHist);
 
         jMenuBar1.add(jMenu5);
@@ -232,6 +237,15 @@ public class ViewMenuAdm extends javax.swing.JFrame {
         mov.setVisible(true);
         ViewMenuAdm.this.dispose();
     }//GEN-LAST:event_menuMovActionPerformed
+
+    private void menuHistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHistActionPerformed
+        // TODO add your handling code here:
+        ViewMovHist mov = new ViewMovHist();
+        mov.pack();
+        mov.setLocationRelativeTo(null);
+        mov.setVisible(true);
+        ViewMenuAdm.this.dispose();
+    }//GEN-LAST:event_menuHistActionPerformed
 
     /**
      * @param args the command line arguments

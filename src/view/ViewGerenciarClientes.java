@@ -14,6 +14,7 @@ import model.bean.Ovos_Tipo;
 import model.dao.ClienteDAO;
 import model.dao.Ovos_CaipiraDAO;
 import model.dao.Ovos_TipoDAO;
+import model.dao.TransferenciaDAO;
 
 /**
  *
@@ -183,11 +184,13 @@ public class ViewGerenciarClientes extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btnExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 480, Short.MAX_VALUE)
                 .addComponent(btnVoltar))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,8 +231,11 @@ public class ViewGerenciarClientes extends javax.swing.JFrame {
     public void ReadTableClientes(){
         DefaultTableModel modelo = (DefaultTableModel) tableClientes.getModel();
         ClienteDAO cdao = new ClienteDAO();
+        TransferenciaDAO tdao = new TransferenciaDAO();
         modelo.setNumRows(0);
         for (Cliente c : cdao.Read()) {
+            c.setTransf(tdao.ClienteRead(c.getID()));
+            c.calcSaldo();
             modelo.addRow(new Object[]{
                 c.getID(),
                 c.getNome()+ " " + c.getSobrenome(),

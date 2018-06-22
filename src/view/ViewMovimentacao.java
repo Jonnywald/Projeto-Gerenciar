@@ -47,8 +47,6 @@ public class ViewMovimentacao extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtId = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         cbCliente = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
@@ -63,11 +61,11 @@ public class ViewMovimentacao extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Movimentações"));
 
-        jLabel1.setText("Codigo da Transferencia:");
-
         jLabel2.setText("Cliente:");
 
         jLabel3.setText("Valor:");
+
+        txtData.setDateFormatString("yyyy-MM-dd");
 
         jLabel4.setText("Data:");
 
@@ -93,8 +91,8 @@ public class ViewMovimentacao extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
@@ -103,9 +101,7 @@ public class ViewMovimentacao extends javax.swing.JFrame {
                             .addComponent(txtData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtValor, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbCliente, 0, 133, Short.MAX_VALUE)
-                                    .addComponent(txtId))
+                                .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -117,10 +113,6 @@ public class ViewMovimentacao extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -136,7 +128,7 @@ public class ViewMovimentacao extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnMovimentar)
                     .addComponent(btnVoltar))
-                .addContainerGap())
+                .addGap(43, 43, 43))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -150,7 +142,9 @@ public class ViewMovimentacao extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -169,19 +163,13 @@ public class ViewMovimentacao extends javax.swing.JFrame {
         // TODO add your handling code here:
         Transferencia t = new Transferencia();
         TransferenciaDAO tdao = new TransferenciaDAO();
-        t.setID(Integer.parseInt(txtId.getText()));
         t.setCodCliente(((Cliente)cbCliente.getSelectedItem()).getID());
         t.setValor(Double.parseDouble(txtValor.getText()));
         t.setDataTransf(((JTextField)txtData.getDateEditor().getUiComponent()).getText());
-        if (txtId.getText() != "" && txtData.getDate() != null && txtValor.getText() != "") {
-            if(tdao.Check(t.getID())){
-                int input = JOptionPane.showConfirmDialog(null, "Codigo já cadastrado, deseja atulalizar item?");
-                if (input == 0) {
-                    tdao.Update(t);
-                }
-            }else{
+        if (txtData.getDate() != null && txtValor.getText() != "") {
+            
                 tdao.Create(t);
-            }
+            
         } else {
             JOptionPane.showMessageDialog(null, "Campo Vazio!");
         }
@@ -226,13 +214,11 @@ public class ViewMovimentacao extends javax.swing.JFrame {
     private javax.swing.JButton btnMovimentar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<Object> cbCliente;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private com.toedter.calendar.JDateChooser txtData;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

@@ -83,6 +83,34 @@ public class ClienteDAO {
         }
         return clientes;
     }
+    
+    public Cliente GetCliente(int id){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Cliente c = new Cliente();
+        try {
+            stmt = con.prepareStatement("SELECT * FROM Cliente WHERE ID = ?");
+            stmt.setInt(1,id);
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                c.setID(rs.getInt("ID"));
+                c.setNome(rs.getString("nome"));
+                c.setSobrenome(rs.getString("sobrenome"));
+                c.setEmail(rs.getString("email"));
+                c.setTelefone(rs.getString("telefone"));
+                c.setSaldo(rs.getDouble("saldo"));
+            }
+            else{
+                c = null;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao ler dados: " + ex);
+        }finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return c;
+    }
     public boolean Check(int id){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
