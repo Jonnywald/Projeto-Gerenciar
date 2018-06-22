@@ -39,6 +39,7 @@ public class ViewMenuAdm extends javax.swing.JFrame {
         menuCachaca = new javax.swing.JMenuItem();
         menuOvo = new javax.swing.JMenuItem();
         menuRapadura = new javax.swing.JMenuItem();
+        menuCliente = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -103,6 +104,14 @@ public class ViewMenuAdm extends javax.swing.JFrame {
 
         menuRapadura.setText("Rapadura");
         jMenu3.add(menuRapadura);
+
+        menuCliente.setText("Cliente");
+        menuCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuClienteActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuCliente);
 
         jMenuBar1.add(jMenu3);
 
@@ -174,6 +183,15 @@ public class ViewMenuAdm extends javax.swing.JFrame {
         Voltar();
     }//GEN-LAST:event_menuDesconectarActionPerformed
 
+    private void menuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClienteActionPerformed
+        // TODO add your handling code here:
+        ViewGerenciarClientes cli = new ViewGerenciarClientes();
+        cli.pack();
+        cli.setLocationRelativeTo(null);
+        cli.setVisible(true);
+        ViewMenuAdm.this.dispose();
+    }//GEN-LAST:event_menuClienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -218,6 +236,7 @@ public class ViewMenuAdm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem menuCachaca;
+    private javax.swing.JMenuItem menuCliente;
     private javax.swing.JMenuItem menuDesconectar;
     private javax.swing.JMenuItem menuFuncao;
     private javax.swing.JMenuItem menuOvo;

@@ -71,6 +71,7 @@ public class Cliente {
     }
 
     public double getSaldo() {
+        calcSaldo();
         return saldo;
     }
 
