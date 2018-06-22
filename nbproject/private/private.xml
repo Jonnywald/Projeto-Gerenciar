@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Java_Projects/projeto_gerenciar/src/view/ViewGerenciarOvos.java</file>
-            <file>file:/D:/Java_Projects/projeto_gerenciar/src/view/ViewGerenciarUsuario.java</file>
-            <file>file:/D:/Java_Projects/projeto_gerenciar/src/model/dao/FuncaoDAO.java</file>
+            <file>file:/D:/Java_Projects/projeto_gerenciar/src/model/bean/Transferencia.java</file>
+            <file>file:/D:/Java_Projects/projeto_gerenciar/src/model/bean/Cliente.java</file>
             <file>file:/D:/Java_Projects/projeto_gerenciar/src/model/bean/Ovos_Tipo.java</file>
-            <file>file:/D:/Java_Projects/projeto_gerenciar/src/model/dao/UsuariosDAO.java</file>
-            <file>file:/D:/Java_Projects/projeto_gerenciar/src/model/bean/Ovos_Caipira.java</file>
-            <file>file:/D:/Java_Projects/projeto_gerenciar/src/model/dao/Ovos_TipoDAO.java</file>
         </group>
     </open-files>
 </project-private>
